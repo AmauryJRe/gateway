@@ -1,10 +1,20 @@
 package com.gateway.app.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
-
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +38,13 @@ public class GatewayController {
 	@Autowired
 	private PeripheralService peripheralService;
 	
+	private final static Logger log = LoggerFactory.getLogger(GatewayController.class);
+	
 	@GetMapping(value = "/list")
-	public List<Gateway> list(){
-		return gatewayService.findAll();
+	public Page<Gateway> list(@RequestParam(defaultValue = "5") int size,
+			@RequestParam(defaultValue = "0") Integer page){
+		Pageable pageable = PageRequest.of(page, size);
+		return gatewayService.findAll(pageable);
 	}
 	
 	@GetMapping(value = "/detail/{id}")
@@ -38,9 +52,15 @@ public class GatewayController {
 		return gatewayService.findById(id).orElseThrow(()->new Exception("Not Found"));
 	}
 	
-	@PostMapping(value = "/create")
-	public Gateway detail(@RequestBody @Valid Gateway gateway) throws Exception{
-		return gatewayService.saveAndFlush(gateway);
+	@PostMapping(value = "/save")
+	public ResponseEntity<?> detail(@Valid @RequestBody Gateway gateway, BindingResult result) throws Exception{
+		if(!result.hasErrors()) {
+			Gateway saved = gatewayService.saveAndFlush(gateway);
+			EntityModel<Gateway> response = EntityModel.of(saved, linkTo(methodOn(GatewayController.class).detail(gateway.getId())).withSelfRel());
+			return ResponseEntity.ok().body(response);
+		}
+
+		throw new Exception(result.getFieldError().getField().toString());
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
@@ -67,5 +87,10 @@ public class GatewayController {
 		Gateway gateway = gatewayService.findById(gateway_id).get();
 		gateway.getPeripheral().remove(peripheralService.findById(peripheral_id).get());
 		return gatewayService.saveAndFlush(gateway);
+	}
+	
+	@GetMapping(value = "/metadata")
+	public Map<String, Object> metadata(){
+		return gatewayService.metadata();
 	}
 }

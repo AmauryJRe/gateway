@@ -1,9 +1,13 @@
 package com.gateway.app.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.gateway.app.model.dao.PeripheralDAO;
@@ -16,8 +20,13 @@ public class PeripheralServiceImp implements PeripheralService {
 	PeripheralDAO peripheralDAO;
 
 	@Override
-	public List<Peripheral> findAll() {
-		return peripheralDAO.findAll();
+	public Page<Peripheral> findAll(Pageable pageable) {
+		return peripheralDAO.findAll(pageable);
+	}
+	
+	@Override
+	public List<Peripheral> findAllUnlinked() {
+		return peripheralDAO.findAllUnlinked();
 	}
 
 	@Override
@@ -58,5 +67,16 @@ public class PeripheralServiceImp implements PeripheralService {
 	@Override
 	public List<Peripheral> findByIds(Iterable<Long> ids) {
 		return peripheralDAO.findAllById(ids);
+	}
+
+	@Override
+	public Map<String, Object> metadata() {
+		
+		Map<String,Object> data = new HashMap<>();
+		Object[] values= peripheralDAO.metadata();
+		String[] labels = {"ONLINE","OFFLINE"};
+		data.put("labels", labels);
+		data.put("dataset", values[0]);
+		return data;	
 	}
 }

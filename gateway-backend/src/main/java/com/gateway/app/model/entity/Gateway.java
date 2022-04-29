@@ -10,7 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,11 +28,16 @@ public class Gateway {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	
-	@Column(unique = true)
-	String serialNumber;
 	
+	@Column(nullable = false,unique = true)
+	Integer serialNumber;
+	
+	@NotBlank
 	String name;
+	
+	@Column(unique = true)
 	@Pattern(regexp = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
+	@NotBlank
 	String ipv4;
 	
 	@OneToMany(fetch = FetchType.LAZY)

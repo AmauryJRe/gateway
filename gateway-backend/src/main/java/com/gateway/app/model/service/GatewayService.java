@@ -1,13 +1,17 @@
 package com.gateway.app.model.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.gateway.app.model.entity.Gateway;
 
 public interface GatewayService {
 	
-	public List<Gateway> findAll();
+	public Page<Gateway> findAll(Pageable pageable);
 
 	public void flush();
 
@@ -22,4 +26,6 @@ public interface GatewayService {
 	public boolean existsById(Long id);
 
 	public void deleteById(Long id);
+	
+	Map<String, Object> metadata();
 }

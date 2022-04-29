@@ -1,9 +1,13 @@
 package com.gateway.app.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.gateway.app.model.dao.GatewayDAO;
@@ -16,8 +20,8 @@ public class GatewayServiceImp implements GatewayService {
 	GatewayDAO gatewayDAO;
 
 	@Override
-	public List<Gateway> findAll() {
-		return gatewayDAO.findAll();
+	public Page<Gateway> findAll(Pageable pageable) {
+		return gatewayDAO.findAll(pageable);
 	}
 
 	@Override
@@ -53,6 +57,16 @@ public class GatewayServiceImp implements GatewayService {
 	@Override
 	public void deleteById(Long id) {
 		gatewayDAO.deleteById(id);
+	}
+
+	@Override
+	public Map<String, Object> metadata() {
+		Map<String,Object> data = new HashMap<>();
+		Object[] values= gatewayDAO.metadata();
+		String[] labels = {"LINKED","UNLINKED"};
+		data.put("labels", labels);
+		data.put("dataset", values[0]);
+		return data;	
 	}
 
 }

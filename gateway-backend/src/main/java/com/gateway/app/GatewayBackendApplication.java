@@ -87,7 +87,7 @@ public class GatewayBackendApplication  implements CommandLineRunner{
 			Gateway g = new Gateway();
 			g.setIpv4(ipv4.toArray()[i].toString());
 			g.setName(names.toArray()[i].toString());
-			g.setSerialNumber(serials.toArray()[i].toString());
+			g.setSerialNumber(Integer.parseInt(serials.toArray()[i].toString()));
 			g.setPeripheral(peripheralService.findByIds(ids));
 			gs.add(g);
 		}
