@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "jquery";
 import "popper.js/dist/umd/popper";
 import "bootstrap/dist/js/bootstrap";
+import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap/dist/css/bootstrap.min.css";
 import './index.css';
 import App from './App';

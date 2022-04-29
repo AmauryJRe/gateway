@@ -1,7 +1,5 @@
 package com.gateway.app.model.dao;
 
-import java.util.Map;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

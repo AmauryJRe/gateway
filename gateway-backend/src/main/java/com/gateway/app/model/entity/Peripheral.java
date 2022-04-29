@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,13 +25,16 @@ public class Peripheral {
 	Long id;
 	
 	@Column(unique = true)
-	Long UID;
+	@NotNull
+	Long uid;
 	
+	@NotNull
 	String vendor;
 	
 	@Temporal(TemporalType.DATE)
 	Date date;
 	
+	@NotNull
 	PeripheralStatus status;
 	
 	@PrePersist

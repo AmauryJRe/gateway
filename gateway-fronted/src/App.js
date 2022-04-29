@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <div className="wrapper">
           <Sidebar />
-          <div id="content" style={{ width: "100vw" }}>
+          <div id="content" style={{width:"100%"}}>
             <NavBar />
             <Routes>
               <Route path="" element={<Dashboard />} />

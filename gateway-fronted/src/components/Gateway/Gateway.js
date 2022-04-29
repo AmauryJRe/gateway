@@ -46,7 +46,7 @@ function Gateway() {
       };
       axios.delete(`http://localhost:8090/gateway/delete/${gateway_id}`)
       .then(() => fetchResource(currentPage));
-  }
+  };
 
   useEffect(() => {
     fetchResource(0);
@@ -79,6 +79,7 @@ function Gateway() {
       );
     });
   };
+  
   return (
     <React.Fragment>
     

@@ -45,12 +45,11 @@ public class PeripheralController {
 		return peripheralService.findById(id).orElseThrow(()->new Exception("Not Found"));
 	}
 	
-	@PostMapping(value = "/create")
+	@PostMapping(value = "/save")
 	public Peripheral detail(@Valid @RequestBody Peripheral peripheral,BindingResult result) throws Exception{
-		log.info("aaaaaaaaaaaa");
 		if(!result.hasErrors())
 		return peripheralService.saveAndFlush(peripheral);
-		throw new Exception(result.getFieldError().getField().toString());
+		throw new Exception(result.getObjectName()+"."+result.getFieldError().getField().toString());
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")

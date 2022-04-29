@@ -1,11 +1,12 @@
 package com.gateway.app.controller;
 
-import java.util.List;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.Map;
 
 import javax.validation.Valid;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class GatewayController {
 			return ResponseEntity.ok().body(response);
 		}
 
-		throw new Exception(result.getFieldError().getField().toString());
+		throw new Exception(result.getFieldError().getObjectName()+"."+result.getFieldError().getField());
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")

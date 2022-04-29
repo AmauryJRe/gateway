@@ -50,7 +50,7 @@ function Dashboard () {
 
             <div
               className="card text-center text-white mb-3 bg-card"
-              style={{ maxWidth: "15rem", marginLeft: "2rem" }}
+              style={{ maxWidth: "17rem", marginLeft: "1.5rem" }}
             >
               <div className="card-header">Gateway Count</div>
               <div className="card-body">
@@ -68,7 +68,7 @@ function Dashboard () {
             </div>
             <div
               className="card text-center text-white mb-3 bg-card"
-              style={{ maxWidth: "15rem", marginLeft: "2rem" }}
+              style={{ maxWidth: "17rem", marginLeft: "1.5rem" }}
             >
               <div className="card-header">Peripheral Count</div>
               <div className="card-body">
@@ -86,7 +86,7 @@ function Dashboard () {
             </div>
             <div
               className="card text-center text-white mb-3 bg-card"
-              style={{ maxWidth: "15rem", marginLeft: "2rem" }}
+              style={{ maxWidth: "17rem", marginLeft: "1.5rem" }}
             >
               <div className="card-header">Gateway not linked</div>
               <div className="card-body">
@@ -104,7 +104,7 @@ function Dashboard () {
             </div>
             <div
               className="card text-center text-white mb-3 bg-card"
-              style={{ maxWidth: "15rem", marginLeft: "2rem" }}
+              style={{ maxWidth: "17rem", marginLeft: "1.5rem" }}
             >
               <div className="card-header">Paripherals not linked</div>
               <div className="card-body">
@@ -122,7 +122,7 @@ function Dashboard () {
             </div>
             {/* </div> */}
           </div>
-          <div className="p-4 row">
+          <div className="row" style={{paddingLeft:"2rem",paddingRight:"3.5rem"}}>
             <div className="col-sm-10 col-md-6 col-lg-6">
               {gatewayChart ? <BarChar chartdata={gatewayChart} /> : ""}
             </div>

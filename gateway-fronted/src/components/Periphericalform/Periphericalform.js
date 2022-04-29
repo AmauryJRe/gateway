@@ -61,13 +61,17 @@ const generateRows = () => {
       },
     };
     fetch(
-      `http://localhost:8090/pripheral/detail/${id}`,
+      `http://localhost:8090/peripheral/detail/${id}`,
       fetchConfig
     )
       .then((res) => res.json())
       .then(
         (result) => {
           setPeripheral(result);
+          setDate(result.date);
+          setStatus(result.status);
+          setUid(result.uid);
+          setVendor(result.vendor);
         },
         (error) => {
           
@@ -82,7 +86,6 @@ const generateRows = () => {
   }, []);
   
   const submit = () => {
-    console.log("lllllllll");
     let peripheralSave;
     if (id) {
       peripheralSave = {
@@ -108,15 +111,12 @@ const generateRows = () => {
     };
     fetch(`http://localhost:8090/peripheral/save`, fetchConfig)
       .then((response) => {
-        console.log(response.status);
         if (response.status !== 200) {
           const error = (response && response.message) || response.status;
           response
             .json()
             .then((res) => {
               setPeripheralError(res);
-              console.log(res);
-              console.log(peripheralSave);
             })
             .finally(() => {});
           return Promise.reject(error);
@@ -130,17 +130,12 @@ const generateRows = () => {
           setPeripheralError(null);
           manageSuccessToast();
           navigate(`/peripheral/form/${result.id}`);
-          fetchGateway();
         },
         (error) => {
           manageFailToast();
         }
       );
   };
-
-  const fetchGateway = () =>{
-    console.log("asdass");
-  }
 
   const manageSuccessToast = () => {
     let myToast = toastSuccessRef.current;
@@ -225,12 +220,12 @@ const generateRows = () => {
             />
              <div
                 className={
-                  pripheralError && pripheralError.field === "UID"
+                  pripheralError && pripheralError.field === "uid"
                     ? "invalid-feedback d-block"
                     : "d-none"
                 }
               >
-                {pripheralError && pripheralError.field === "UID"
+                {pripheralError && pripheralError.field === "uid"
                   ? pripheralError.message
                   : ""}
               </div>
@@ -265,12 +260,12 @@ const generateRows = () => {
             </select>
             <div
                 className={
-                  pripheralError && pripheralError.field === "STATUS"
+                  pripheralError && pripheralError.field === "status"
                     ? "invalid-feedback d-block"
                     : "d-none"
                 }
               >
-                {pripheralError && pripheralError.field === "STATUS"
+                {pripheralError && pripheralError.field === "status"
                   ? pripheralError.message
                   : ""}
               </div>
@@ -290,32 +285,17 @@ const generateRows = () => {
             />
              <div
                 className={
-                  pripheralError && pripheralError.field === "VENDOR"
+                  pripheralError && pripheralError.field === "vendor"
                     ? "invalid-feedback d-block"
                     : "d-none"
                 }
               >
-                {pripheralError && pripheralError.field === "VENDOR"
+                {pripheralError && pripheralError.field === "vendor"
                   ? pripheralError.message
                   : ""}
               </div>
           </div>
         </div>
-        {/* <div className="row g-3 col-sm-12 col-lg-6 offset-lg-3 my-4">
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">UID</th>
-                <th scope="col">STATUS</th>
-                <th scope="col">DATE</th>
-                <th scope="col">VENDOR</th>
-                <th scope="col">ACTION</th>
-              </tr>
-            </thead>
-            <tbody>{generateRows()}</tbody>
-          </table>
-        </div> */}
       </form>
       <div className="col-12">
       <button

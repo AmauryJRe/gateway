@@ -222,7 +222,6 @@ function Gatewayform() {
     };
     fetch(`http://localhost:8090/gateway/save`, fetchConfig)
       .then((response) => {
-        console.log(response.status);
         if (response.status !== 200) {
           const error = (response && response.message) || response.status;
           response
@@ -364,12 +363,12 @@ function Gatewayform() {
               />
               <div
                 className={
-                  gatewayErrors && gatewayErrors.field === "NAME"
+                  gatewayErrors && gatewayErrors.field === "name"
                     ? "invalid-feedback d-block"
                     : "d-none"
                 }
               >
-                {gatewayErrors && gatewayErrors.field === "NAME"
+                {gatewayErrors && gatewayErrors.field === "name"
                   ? gatewayErrors.message
                   : ""}
               </div>
@@ -390,12 +389,12 @@ function Gatewayform() {
               />
               <div
                 className={
-                  gatewayErrors && gatewayErrors.field === "SERIAL_NUMBER"
+                  gatewayErrors && gatewayErrors.field === "serial_number"
                     ? "invalid-feedback d-block"
                     : "d-none"
                 }
               >
-                {gatewayErrors && gatewayErrors.field === "SERIAL_NUMBER"
+                {gatewayErrors && gatewayErrors.field === "serial_number"
                   ? gatewayErrors.message
                   : ""}
               </div>
@@ -417,12 +416,12 @@ function Gatewayform() {
               />
               <div
                 className={
-                  gatewayErrors && gatewayErrors.field === "IPV4"
+                  gatewayErrors && gatewayErrors.field === "ipv4"
                     ? "invalid-feedback d-block"
                     : "d-none"
                 }
               >
-                {gatewayErrors && gatewayErrors.field === "IPV4"
+                {gatewayErrors && gatewayErrors.field === "ipv4"
                   ? gatewayErrors.message
                   : ""}
               </div>

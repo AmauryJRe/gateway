@@ -60,7 +60,7 @@ public class GatewayBackendApplication  implements CommandLineRunner{
 		
 		for (int i = 0; i < peripheralCount; i++) {
 			Peripheral p = new Peripheral();
-			p.setUID(Long.valueOf(uuid.toArray()[i].toString()));
+			p.setUid(Long.valueOf(uuid.toArray()[i].toString()));
 			p.setVendor(vendor.toArray()[i].toString());
 			p.setStatus(PeripheralStatus.values()[i%2]);
 			ps.add(p);
