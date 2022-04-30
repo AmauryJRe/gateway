@@ -6,6 +6,6 @@ Requisitos
 
 # How to run
 1. Spring API
-    Ented bakend and run `mvn spring-boot:run`
+    1. Ented bakend and run `mvn spring-boot:run`
 2. ReactJs front
-    Enter front and run `npm i` and `npm start`
+    1. Enter front and run `npm i` and `npm start`
